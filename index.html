@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> GTM Project </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PWSFKNF4');
+  </script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body>
+  <div class="container-fluid p-5 bg-primary text white text-center">
+  <h1> Google Tag Manager Test</h1>
+  <p> Test page for GTM integration</p>
+  </div>
+    
+  <!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWSFKNF4"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <script>
+    // Push query string parameters to the GTM dataLayer
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        const key = params.get('key');
+        const value = params.get('value');
+
+        if (key && value) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'customQueryStringEvent',
+                'key': key,
+                'value': value
+            });
+            console.log('Pushed to dataLayer:', { key, value });
+        }
+    }
+
+    // Call the function on page load
+    window.onload = getQueryParams;
+</script>
+</body>
+</html>
