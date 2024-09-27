@@ -17,10 +17,10 @@
 </head>
 
 <body>
-  <div class="container-fluid p-5 bg-primary text white text-center">
   <h1> Google Tag Manager Test</h1>
   <p> Test page for GTM integration</p>
-  </div>
+  <button id="sendRequest">Send GET Request to httpbin</button>
+
     
   <!-- Google Tag Manager (noscript) -->
 <noscript>
@@ -49,6 +49,43 @@
 
     // Call the function on page load
     window.onload = getQueryParams;
+
+    // Function to send GET request to httpbin using query string parameters from dataLayer
+    function sendApiRequest() {
+        // Find the key-value pairs in the dataLayer
+        const dataLayer = window.dataLayer || [];
+        let key = '';
+        let value = '';
+
+        // Loop through the dataLayer and find the relevant key-value pair
+        dataLayer.forEach(item => {
+            if (item.event === 'customQueryStringEvent') {
+                key = item.key;
+                value = item.value;
+            }
+        });
+
+        // If key and value are found, make the API call
+        if (key && value) {
+            const url = `https://httpbin.org/get?key=${key}&value=${value}`;
+            console.log('Sending GET request to:', url);
+
+            // Make the GET request using the Fetch API
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data);
+                })
+                .catch(error => {
+                    console.error('Error with the request:', error);
+                });
+        } else {
+            console.error('No key-value pair found in the dataLayer');
+        }
+    }
+
+    // Add an event listener to the button to send the request when clicked
+    document.getElementById('sendRequest').addEventListener('click', sendApiRequest);
 </script>
 </body>
 </html>
