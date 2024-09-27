@@ -19,6 +19,8 @@
 <body>
   <h1> Google Tag Manager Test</h1>
   <p> Test page for GTM integration</p>
+
+    <!-- Add Button -->
   <button id="sendRequest">Send GET Request to httpbin</button>
 
     
@@ -50,14 +52,14 @@
     // Call the function on page load
     window.onload = getQueryParams;
 
-    // Function to send GET request to httpbin using query string parameters from dataLayer
+    // Function to send GET request to httpbin using query string parameters from dataLayer step 1
     function sendApiRequest() {
         // Find the key-value pairs in the dataLayer
         const dataLayer = window.dataLayer || [];
         let key = '';
         let value = '';
 
-        // Loop through the dataLayer and find the relevant key-value pair
+        // Loop through the dataLayer and find the key-value pair
         dataLayer.forEach(item => {
             if (item.event === 'customQueryStringEvent') {
                 key = item.key;
@@ -70,7 +72,7 @@
             const url = `https://httpbin.org/get?key=${key}&value=${value}`;
             console.log('Sending GET request to:', url);
 
-            // Make the GET request using the Fetch API
+            // Make the GET request using the Fetch API and log errors
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
